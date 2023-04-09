@@ -4,6 +4,7 @@ const refs = {
   bodyEl: document.querySelector('body'),
 };
 
+refs.stopButtonEl.setAttribute("disabled", "")
 let idInterval = null;
 const CHANGE_COLOR_DELAY = 1000;
 
@@ -20,10 +21,12 @@ function onStartBtnClick(evt) {
   idInterval = setInterval(() => {
     refs.bodyEl.style.backgroundColor = getRandomHexColor();
   }, CHANGE_COLOR_DELAY);
-  evt.target.setAttribute('disabled', '');
+    evt.target.setAttribute('disabled', '');
+    refs.stopButtonEl.removeAttribute("disabled")
 }
 
-function onStopBtnClick() {
+function onStopBtnClick(evt) {
   clearInterval(idInterval);
-  refs.startButtonEl.removeAttribute('disabled');
+    refs.startButtonEl.removeAttribute('disabled');
+    evt.target.setAttribute("disabled", "")
 }
