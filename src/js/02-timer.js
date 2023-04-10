@@ -48,31 +48,40 @@ const options = {
   onClose(selectedDates) {
     let inputTime = selectedDates[0];
     let currentTime = Date.now();
-    let deltaTime = inputTime - currentTime;
-    if (deltaTime > 0) {
-      refs.startBtnEl.removeAttribute('disabled');
 
-      const timerTimeInMs = new Date(deltaTime);
-      writeTimerTime(convertMs(timerTimeInMs));
-    } else {
-      // alert('Please choose a date in the future');
+    if (inputTime < currentTime) {
       Notiflix.Notify.init({ fontSize: '20px' });
       Notiflix.Notify.failure('Please choose a date in the future');
-    }
-    refs.startBtnEl.addEventListener('click', onStartBtnClick);
-    function onStartBtnClick() {
-      const intervalId = setInterval(() => {
-        writeTimerTime(convertMs(inputTime - Date.now()));
-
-        if (Math.floor((inputTime - Date.now()) / 1000) <= 0) {
-          clearInterval(intervalId);
-
-          [...refs.timerEl.children].forEach(element => {
-            element.classList.add('stop');
-          });
-        }
-      }, 1000);
+    } else {
+      refs.startBtnEl.removeAttribute('disabled');
+      [...refs.timerEl.children].forEach(element => {
+        element.classList.remove('stop');
+      });
     }
   },
 };
-flatpickr('#datetime-picker', options);
+console.log('xfvbgdsxfv');
+const timer = flatpickr('#datetime-picker', options);
+
+refs.startBtnEl.addEventListener('click', onStartBtnClick);
+
+function onStartBtnClick() {
+  
+  const timerTime = timer.selectedDates[0];
+
+  let currentTimerTime = timerTime - Date.now();
+
+  writeTimerTime(convertMs(currentTimerTime));
+
+  const intervalId = setInterval(() => {
+    currentTimerTime = timerTime - Date.now();
+    writeTimerTime(convertMs(currentTimerTime));
+
+    if (Math.floor(currentTimerTime / 1000) <= 0) {
+      clearInterval(intervalId);
+      [...refs.timerEl.children].forEach(element => {
+        element.classList.add('stop');
+      });
+    }
+  }, 1000);
+}
