@@ -56,14 +56,15 @@ const options = {
       writeTimerTime(convertMs(timerTimeInMs));
     } else {
       // alert('Please choose a date in the future');
-      Notiflix.Notify.warning('Memento te hominem esse');
+      Notiflix.Notify.init({ fontSize: '20px' });
+      Notiflix.Notify.failure('Please choose a date in the future');
     }
     refs.startBtnEl.addEventListener('click', onStartBtnClick);
     function onStartBtnClick() {
       const intervalId = setInterval(() => {
         writeTimerTime(convertMs(inputTime - Date.now()));
 
-        if (Math.floor((inputTime - Date.now()) / 1000) === 0) {
+        if (Math.floor((inputTime - Date.now()) / 1000) <= 0) {
           clearInterval(intervalId);
 
           [...refs.timerEl.children].forEach(element => {
