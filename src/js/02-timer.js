@@ -1,7 +1,7 @@
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
 import Notiflix from 'notiflix';
-console.log("dsgfsdf")
+console.log('dsgfsdf');
 const refs = {
   startBtnEl: document.querySelector('[data-start]'),
   timerEl: document.querySelector('.timer'),
@@ -46,17 +46,17 @@ const options = {
   defaultDate: new Date(),
   minuteIncrement: 1,
   onClose(selectedDates) {
-    inputTime = selectedDates[0];
-    currentTime = Date.now();
-    deltaTime = inputTime - currentTime;
+    let inputTime = selectedDates[0];
+    let currentTime = Date.now();
+    let deltaTime = inputTime - currentTime;
     if (deltaTime > 0) {
       refs.startBtnEl.removeAttribute('disabled');
 
       const timerTimeInMs = new Date(deltaTime);
       writeTimerTime(convertMs(timerTimeInMs));
     } else {
-        // alert('Please choose a date in the future');
-        Notiflix.Notify.warning('Memento te hominem esse');
+      // alert('Please choose a date in the future');
+      Notiflix.Notify.warning('Memento te hominem esse');
     }
     refs.startBtnEl.addEventListener('click', onStartBtnClick);
     function onStartBtnClick() {
