@@ -60,28 +60,31 @@ const options = {
     }
   },
 };
-console.log('xfvbgdsxfv');
+
 const timer = flatpickr('#datetime-picker', options);
 
 refs.startBtnEl.addEventListener('click', onStartBtnClick);
 
 function onStartBtnClick() {
-  
   const timerTime = timer.selectedDates[0];
 
   let currentTimerTime = timerTime - Date.now();
-
-  writeTimerTime(convertMs(currentTimerTime));
-
-  const intervalId = setInterval(() => {
-    currentTimerTime = timerTime - Date.now();
+  if (currentTimerTime < 0) {
+    Notiflix.Notify.init({ fontSize: '20px' });
+    Notiflix.Notify.warning('Time out, set a new timer');
+  } else {
     writeTimerTime(convertMs(currentTimerTime));
 
-    if (Math.floor(currentTimerTime / 1000) <= 0) {
-      clearInterval(intervalId);
-      [...refs.timerEl.children].forEach(element => {
-        element.classList.add('stop');
-      });
-    }
-  }, 1000);
+    const intervalId = setInterval(() => {
+      currentTimerTime = timerTime - Date.now();
+      writeTimerTime(convertMs(currentTimerTime));
+
+      if (Math.floor(currentTimerTime / 1000) <= 0) {
+        clearInterval(intervalId);
+        [...refs.timerEl.children].forEach(element => {
+          element.classList.add('stop');
+        });
+      }
+    }, 1000);
+  }
 }
