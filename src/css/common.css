@@ -16,3 +16,44 @@ img {
   display: block;
   max-width: 100%;
 }
+
+#datetime-picker {
+  font-size: 20px;
+}
+
+button[data-start],
+button[data-stop] {
+  font-size: 20px;
+  height: 30px;
+  width: 70px;
+}
+
+.timer {
+  display: flex;
+  column-gap: 15px;
+  margin-top: 15px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5px;
+  border: 2px solid green;
+  border-radius: 5px;
+}
+
+.value {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.label {
+  text-transform: uppercase;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.field.stop {
+  background-color: red;
+}
