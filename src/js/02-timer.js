@@ -1,7 +1,7 @@
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
 import Notiflix from 'notiflix';
-console.log('dsgfsdf');
+
 const refs = {
   startBtnEl: document.querySelector('[data-start]'),
   timerEl: document.querySelector('.timer'),
